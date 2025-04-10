@@ -15,6 +15,7 @@ type Product struct {
 	ProductID   string `json:"productID"`
 	ProductName string `json:"productName"`
 	Owner       string `json:"owner"`
+	Status      string `json:"status"`
 }
 
 func (s *SmartContract) CreateProduct(ctx contractapi.TransactionContextInterface, productID, productName, owner string) error {
@@ -32,6 +33,7 @@ func (s *SmartContract) CreateProduct(ctx contractapi.TransactionContextInterfac
 		ProductID:   productID,
 		ProductName: productName,
 		Owner:       owner,
+		Status:      "Factory",
 	}
 
 	byteData, err := json.Marshal(newProduct)
@@ -59,6 +61,7 @@ func (s *SmartContract) TransferProduct(ctx contractapi.TransactionContextInterf
 	}
 
 	newProduct.Owner = newOwner
+	newProduct.Status = "Transferred"
 
 	byteData, err := json.Marshal(newProduct)
 
